@@ -11,10 +11,22 @@ pub struct Zero {
 
 /// Constructor arguments. Defines required and optional params.
 pub struct Arguments {
-    token: String,
-    pick: Option<Vec<String>>,
+    pub token: String,
+    pub pick: Option<Vec<String>>,
 }
 
+/// The main client for accessing Zero GraphQL API.
+///
+/// ### Example:
+/// ```rust
+/// use zero_sdk::{Zero, Arguments};
+///
+/// let client = Zero::new(Arguments {
+///     pick: Some(vec![String::from("my-secret")]),
+///     token: String::from("my-zero-token"),
+/// })
+/// .unwrap();
+/// ```
 impl Zero {
     /// Set the URL which will be called in fetch(). The method was added mostly for convience of testing.
     pub fn set_api_url(mut self, new_api_url: String) -> Self {
