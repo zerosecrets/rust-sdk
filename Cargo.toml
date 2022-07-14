@@ -1,4 +1,6 @@
 [package]
+description = "Rust SDK for Zero secrets manager."
+license = "MIT"
 name = "zero-sdk"
 version = "0.1.0"
 edition = "2021"
