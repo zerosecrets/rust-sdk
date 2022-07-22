@@ -29,20 +29,23 @@ pub fn mock_and_fetch(
     // Failed response, depending on the flag
     if !options.is_none() && options.as_ref().unwrap().is_response_failed {
         response_body = serde_json::json!({
-          "data": null,
-          "errors": [
-            {
-              "message": "Could not establish connection with database",
-              "locations": [{"line": 2, "column": 2}],
-              "path": ["secrets"],
-              "extensions": {"internal_error": "Error occurred while creating a new object: error connecting to server: Connection refused (os error 61)"}
-            }
-          ]
+            "data": null,
+
+            "errors": [
+                {
+                    "message": "Could not establish connection with database",
+                    "locations": [{"line": 2, "column": 2}],
+                    "path": ["secrets"],
+                    "extensions": {"internal_error": "Error occurred while creating a new object: error connecting to server: Connection refused (os error 61)"}
+                }
+            ]
         });
     } else {
-        response_body = serde_json::json!({"secrets": [
-            {"name": "aws", "fields": [{"name": "key", "value": "a"}, {"name": "secret", "value": "b"}]},
-        ]});
+        response_body = serde_json::json!({"data": {
+            "secrets": [
+                {"name": "aws", "fields": [{"name": "key", "value": "a"}, {"name": "secret", "value": "b"}]},
+            ]
+        }});
     }
 
     // Generate mock

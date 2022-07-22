@@ -2,7 +2,7 @@ use std::collections::HashMap;
 mod json;
 mod tests;
 
-/// Zero API client. Instatiate with a token, than call the `.fetch()` method to download secrets.
+/// Zero API client. Instantiate with a token, than call the `.fetch()` method to download secrets.
 pub struct Zero {
     api_url: String,
     pick: Vec<String>,
@@ -73,7 +73,7 @@ impl Zero {
             return Err(String::from(&response_json.errors.unwrap()[0].message));
         }
 
-        if response_json.secrets.is_none() {
+        if response_json.data.is_none() {
             return Err(String::from(
                 "Server returned invalid response (no secrets)",
             ));
@@ -82,6 +82,8 @@ impl Zero {
         // Tranform response to the following structure:
         // {nameOfTheSecret: {fieldOne: "fieldOneValue", fieldTwo: "fieldTwoValue"}}
         Ok(response_json
+            .data
+            .unwrap()
             .secrets
             .unwrap()
             .iter()
