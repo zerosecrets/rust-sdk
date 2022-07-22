@@ -10,5 +10,5 @@ let secrets = Zero::new(Arguments {
     token: String::from("my-zero-token-from-env"),
 })
 .unwrap()
-.fetch()
+.fetch();
 ```
