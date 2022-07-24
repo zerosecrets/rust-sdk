@@ -11,7 +11,7 @@ pub struct SecretFromResponseJson {
 }
 
 #[derive(Debug, serde::Deserialize)]
-pub struct ResponseJsonSecrets {
+pub struct DataJson {
     pub secrets: Option<Vec<SecretFromResponseJson>>,
 }
 
@@ -23,5 +23,5 @@ pub struct ErrorFromResponseJson {
 #[derive(Debug, serde::Deserialize)]
 pub struct ResponseJson {
     pub errors: Option<Vec<ErrorFromResponseJson>>,
-    pub data: Option<ResponseJsonSecrets>,
+    pub data: Option<DataJson>,
 }
