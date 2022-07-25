@@ -53,8 +53,8 @@ pub fn mock_and_fetch(
         when.method(httpmock::prelude::POST)
             .path("/v1/graphql")
             .body_contains(&format!(
-                "secrets(zeroToken: \\\"{}\\\", pick: [{}])",
-                TOKEN, pick_query
+                "secrets(zeroToken: \\\"{}\\\", pick: [{}], caller_name: \\\"{}\\\")",
+                TOKEN, pick_query, "",
             ));
 
         then.status(200)
@@ -66,6 +66,7 @@ pub fn mock_and_fetch(
     let secrets = super::super::Zero::new(super::super::Arguments {
         pick,
         token: String::from(TOKEN),
+        caller_name: None,
     })
     .unwrap()
     .set_api_url(arguments.server.url("/v1/graphql"))

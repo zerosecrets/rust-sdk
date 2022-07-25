@@ -5,6 +5,7 @@ pub fn it_requires_token_to_be_non_empty() {
     if let Err(_) = super::Zero::new(super::Arguments {
         pick: Some(vec![]),
         token: String::from("token"),
+        caller_name: None,
     }) {
         panic!("Instantion with a valid token string failed")
     }
@@ -12,6 +13,7 @@ pub fn it_requires_token_to_be_non_empty() {
     if let Ok(_) = super::Zero::new(super::Arguments {
         pick: Some(vec![]),
         token: String::from(""),
+        caller_name: None,
     }) {
         panic!("No error thrown during instantiation with empty token string")
     }
