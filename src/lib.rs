@@ -45,7 +45,7 @@ impl Zero {
             "query":
                 format!(
                     "query {{
-                        secrets(zeroToken: \"{}\", pick: [{}], \"{}\") {{
+                        secrets(zeroToken: \"{}\", pick: [{}], callerName: \"{}\") {{
                             name
                             fields {{
                                 name value

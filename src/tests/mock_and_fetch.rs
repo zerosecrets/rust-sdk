@@ -53,7 +53,7 @@ pub fn mock_and_fetch(
         when.method(httpmock::prelude::POST)
             .path("/v1/graphql")
             .body_contains(&format!(
-                "secrets(zeroToken: \\\"{}\\\", pick: [{}], caller_name: \\\"{}\\\")",
+                "secrets(zeroToken: \\\"{}\\\", pick: [{}], callerName: \\\"{}\\\")",
                 TOKEN, pick_query, "",
             ));
 
