@@ -14,7 +14,7 @@ pub fn mock_and_fetch(
     options: Option<Options>,
 ) -> Result<std::collections::HashMap<String, std::collections::HashMap<String, String>>, String> {
     const TOKEN: &str = "token";
-    const CALLER_NAME: &str = "this-is-a-caller";
+    const CALLER_NAME: &str = "cicd";
 
     let caller_name_query = if !options.is_none() && options.as_ref().unwrap().is_caller_name_empty {
         String::from("")
