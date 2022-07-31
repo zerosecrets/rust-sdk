@@ -45,7 +45,7 @@ impl Zero {
             "query":
                 format!(
                     "query {{
-                        secrets(zeroToken: \"{}\", pick: [{}], callerName: \"{}\") {{
+                        secrets(zeroToken: \"{}\", pick: [{}]{}) {{
                             name
                             fields {{
                                 name value
@@ -59,7 +59,13 @@ impl Zero {
                         .map(|secret| format!("\"{}\"", &secret))
                         .collect::<Vec<String>>()
                         .join(", "),
-                    &self.caller_name.unwrap_or_default(),
+
+                    // REVIEW There should be a better way for string interpolation
+                    if self.caller_name.is_some() {
+                        format!(", callerName: \"{}\"", &self.caller_name.unwrap_or_default())
+                    } else {
+                        "".to_string()
+                    },
                 )
         })) {
             value

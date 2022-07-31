@@ -1,8 +1,9 @@
-pub struct Arguments {
-    pub server: httpmock::prelude::MockServer,
+pub struct Arguments<'a> {
+    pub server: &'a httpmock::prelude::MockServer,
 }
 
 pub struct Options {
+    pub is_caller_name_empty: bool,
     pub is_pick_empty: bool,
     pub is_response_failed: bool,
 }
@@ -13,6 +14,14 @@ pub fn mock_and_fetch(
     options: Option<Options>,
 ) -> Result<std::collections::HashMap<String, std::collections::HashMap<String, String>>, String> {
     const TOKEN: &str = "token";
+    const CALLER_NAME: &str = "this-is-a-caller";
+
+    let caller_name_query = if !options.is_none() && options.as_ref().unwrap().is_caller_name_empty {
+        String::from("")
+    } else {
+        format!(", callerName: \\\"{}\\\"", CALLER_NAME)
+    };
+
     let pick;
     let pick_query;
     let response_body;
@@ -53,8 +62,8 @@ pub fn mock_and_fetch(
         when.method(httpmock::prelude::POST)
             .path("/v1/graphql")
             .body_contains(&format!(
-                "secrets(zeroToken: \\\"{}\\\", pick: [{}], callerName: \\\"{}\\\")",
-                TOKEN, pick_query, "",
+                "secrets(zeroToken: \\\"{}\\\", pick: [{}]{})",
+                TOKEN, pick_query, caller_name_query,
             ));
 
         then.status(200)
@@ -66,7 +75,7 @@ pub fn mock_and_fetch(
     let secrets = super::super::Zero::new(super::super::Arguments {
         pick,
         token: String::from(TOKEN),
-        caller_name: None,
+        caller_name: if caller_name_query.is_empty() { None } else { Some(String::from(CALLER_NAME)) },
     })
     .unwrap()
     .set_api_url(arguments.server.url("/v1/graphql"))
