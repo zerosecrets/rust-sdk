@@ -5,6 +5,7 @@ mod tests;
 /// Zero API client. Instantiate with a token, than call the `.fetch()` method to download secrets.
 pub struct Zero {
     api_url: String,
+    caller_name: Option<String>,
     pick: Vec<String>,
     token: String,
 }
@@ -13,6 +14,7 @@ pub struct Zero {
 pub struct Arguments {
     pub token: String,
     pub pick: Option<Vec<String>>,
+    pub caller_name: Option<String>,
 }
 
 /// The main client for accessing Zero GraphQL API.
@@ -24,11 +26,12 @@ pub struct Arguments {
 /// let client = Zero::new(Arguments {
 ///     pick: Some(vec![String::from("my-secret")]),
 ///     token: String::from("my-zero-token"),
+///     caller_name: None,
 /// })
 /// .unwrap();
 /// ```
 impl Zero {
-    /// Set the URL which will be called in fetch(). The method was added mostly for convience of testing.
+    /// Set the URL which will be called in fetch(). The method was added mostly for convenience of testing.
     pub fn set_api_url(mut self, new_api_url: String) -> Self {
         self.api_url = new_api_url;
         return self;
@@ -42,7 +45,7 @@ impl Zero {
             "query":
                 format!(
                     "query {{
-                        secrets(zeroToken: \"{}\", pick: [{}]) {{
+                        secrets(zeroToken: \"{}\", pick: [{}]{}) {{
                             name
                             fields {{
                                 name value
@@ -56,6 +59,13 @@ impl Zero {
                         .map(|secret| format!("\"{}\"", &secret))
                         .collect::<Vec<String>>()
                         .join(", "),
+
+                    // REVIEW There should be a better way for string interpolation
+                    if self.caller_name.is_some() {
+                        format!(", callerName: \"{}\"", &self.caller_name.unwrap_or_default())
+                    } else {
+                        "".to_string()
+                    },
                 )
         })) {
             value
@@ -109,6 +119,7 @@ impl Zero {
 
         Ok(Self {
             api_url: String::from("https://core.tryzero.com/v1/graphql"),
+            caller_name: arguments.caller_name,
             pick: arguments.pick.unwrap_or(vec![]),
             token: arguments.token,
         })
