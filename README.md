@@ -4,7 +4,7 @@ Rust SDK for [Zero](https://tryzero.com). Provides a clear and simple interface 
 ## Installation
 ```toml
 [dependencies]
-rust-sdk = "0.13"
+zero-sdk = "0.1.3"
 ```
 
 ## Usage
