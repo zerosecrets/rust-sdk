@@ -6,6 +6,7 @@ Rust SDK for [Zero](https://tryzero.com). Provides a clear and simple interface 
 [dependencies]
 zero-sdk = "0.1.3"
 ```
+https://crates.io/crates/zero-sdk
 
 ## Usage
 ```rust
