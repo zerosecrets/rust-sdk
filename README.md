@@ -1,6 +1,12 @@
 # Zero Rust SDK
 Rust SDK for [Zero](https://tryzero.com). Provides a clear and simple interface for accessing the secrets manager GraphQL API.
 
+## Installation
+```toml
+[dependencies]
+actix = "0.13"
+```
+
 ## Usage
 ```rust
 use zero_sdk::{Arguments, Zero};
