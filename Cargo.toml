@@ -2,7 +2,7 @@
 description = "Rust SDK for Zero secrets manager."
 license = "MIT"
 name = "zero-sdk"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2021"
 
 [dependencies]
