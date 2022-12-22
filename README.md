@@ -2,11 +2,11 @@
 Rust SDK for [Zero](https://tryzero.com). Provides a clear and simple interface for accessing the secrets manager GraphQL API.
 
 ## Installation
+Add this to your `Cargo.toml`:
 ```toml
 [dependencies]
 zero-sdk = "0.1.3"
 ```
-https://crates.io/crates/zero-sdk
 
 ## Usage
 ```rust
