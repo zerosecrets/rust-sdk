@@ -118,7 +118,7 @@ impl Zero {
         }
 
         Ok(Self {
-            api_url: String::from("https://core.tryzero.com/v1/graphql"),
+            api_url: String::from("https://core.tryzero.com/graphql"),
             caller_name: arguments.caller_name,
             pick: arguments.pick.unwrap_or(vec![]),
             token: arguments.token,
