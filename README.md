@@ -5,7 +5,7 @@ Rust SDK for [Zero](https://tryzero.com). Provides a clear and simple interface 
 Add this to your `Cargo.toml`:
 ```toml
 [dependencies]
-zero-sdk = "0.1.4"
+zero-sdk = "0.2.0"
 ```
 
 ## Usage
